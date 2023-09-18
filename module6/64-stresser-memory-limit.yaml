@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: stresser
+  name: stresser
+  namespace: oefeningen
+spec:
+  containers:
+  - image: vish/stress
+    name: stresser
+    resources:
+      limits:
+        memory: "500M"
+    args:
+      - -cpus
+      - "1"
+      - -mem-total
+      - "950Mi"
+      - -mem-alloc-size
+      - "100Mi"
+      - -mem-alloc-sleep
+      - "1s"
