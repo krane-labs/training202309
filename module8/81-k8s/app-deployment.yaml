@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+  namespace: oefeningen
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      component: webapp
+  template:
+    metadata:
+      labels:
+        component: webapp
+    spec:
+      containers:
+        - image: vdbtrainer/node-app
+          name: nodejs
+          ports:
+            - containerPort: 5000
+              hostPort: 5000
+              protocol: TCP
