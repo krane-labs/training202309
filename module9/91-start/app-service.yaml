@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    component: webapp
+  name: webapp
+  namespace: oefeningen
+spec:
+  ports:
+    - name: "nodejs"
+      port: 5000
+      targetPort: 5000
+  selector:
+    component: webapp

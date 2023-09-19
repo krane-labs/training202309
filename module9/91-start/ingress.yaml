@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: demoapp
+  namespace: oefeningen
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: demoapp.frank.training.vandenabeele.x-plose.dev
+    http:
+      paths:
+      - backend:
+          service:
+            name: webapp
+            port:
+              number: 5000
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - demoapp.frank.training.vandenabeele.x-plose.dev
+    secretName: demoapp-tls
