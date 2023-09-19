@@ -3,6 +3,9 @@ kind: Ingress
 metadata:
   name: demoapp
   namespace: oefeningen
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   ingressClassName: nginx
   rules:
@@ -16,3 +19,7 @@ spec:
               number: 5000
         path: /
         pathType: Prefix
+  tls:
+  - hosts:
+    - demoapp.frank.training.vandenabeele.x-plose.dev
+    secretName: demoapp-tls

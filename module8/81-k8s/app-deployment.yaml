@@ -14,9 +14,8 @@ spec:
         component: webapp
     spec:
       containers:
-        - image: vdbtrainer/node-app
+        - image: vdatrainer/node-app
           name: nodejs
           ports:
             - containerPort: 5000
-              hostPort: 5000
               protocol: TCP
