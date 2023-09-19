@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+  namespace: oefeningen
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      component: webapp
+  template:
+    metadata:
+      labels:
+        component: webapp
+    spec:
+      containers:
+        - image: vdatrainer/node-app
+          name: nodejs
+          ports:
+            - containerPort: 5000
+              protocol: TCP
+          livenessProbe:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - test ! -f /tmp/not_live
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          readinessProbe:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - test ! -f /tmp/not_ready
+            initialDelaySeconds: 5
+            periodSeconds: 5
