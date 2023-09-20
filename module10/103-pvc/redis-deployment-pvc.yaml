@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: redis
+  name: redis
+  namespace: oefeningen
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: redis
+  template:
+    metadata:
+      labels:
+        component: redis
+    spec:
+      containers:
+        - image: redislabs/redismod
+          name: redis
+          args: [ "--dir", "/data", "--appendonly", "yes"]
+          ports:
+            - containerPort: 6379
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /data
+              name: redisdata
+      volumes:
+        - name: redisdata
+          persistentVolumeClaim: 
+            claimName: redis-pvc
